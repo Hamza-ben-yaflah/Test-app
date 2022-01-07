@@ -1,6 +1,6 @@
 import React from "react";
 
-function Users({ info }) {
+function User({ info }) {
   return (
     <div>
       <h4>{`Your name is ${info.name}`}</h4>
@@ -9,4 +9,4 @@ function Users({ info }) {
   );
 }
 
-export default Users;
+export default User;
