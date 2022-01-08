@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./pop.css";
 
-function Popup() {
-  const [username, setUsername] = useState("");
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+function Popup({ user, onSave }) {
+  const [username, setUsername] = useState(user?.username || "");
+  const [name, setName] = useState(user?.name || "");
+  const [password, setPassword] = useState(user?.password || "");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3000/users", {
-      method: "POST",
-      body: JSON.stringify({
-        username,
-        name,
-        password,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then(async (data) => console.log(await data.json()));
+    const formUser = {
+      username,
+      name,
+      password,
+    };
+
+    onSave(user ? { ...formUser, id: user.id } : formUser);
+
+    // setUsername("");
+    // setName("");
+    // setPassword("");
   };
 
   return (
@@ -28,10 +28,8 @@ function Popup() {
       <div className="form-group">
         <label htmlFor="inp-username">User Name</label>
         <input
-          onChange={(e) => {
-            setUsername(e.target.value);
-            console.log(username);
-          }}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           type="text"
           className="form-control"
           placeholder="UserName"
@@ -41,10 +39,8 @@ function Popup() {
       <div className="form-group">
         <label htmlFor="inp-name">Name</label>
         <input
-          onChange={(e) => {
-            setName(e.target.value);
-            console.log(name);
-          }}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           type="text"
           className="form-control"
           placeholder="Name"
@@ -54,10 +50,8 @@ function Popup() {
       <div className="form-group">
         <label htmlFor="inp-password">Password</label>
         <input
-          onChange={(e) => {
-            setPassword(e.target.value);
-            console.log(password);
-          }}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           type="password"
           className="form-control"
           placeholder="Enter password"
@@ -80,9 +74,6 @@ function Popup() {
       <button type="submit" className="btn btn-primary btn-block">
         Submit
       </button>
-      <p className="forgot-password text-right">
-        Forgot <a href="#">password?</a>
-      </p>
     </form>
   );
 }
