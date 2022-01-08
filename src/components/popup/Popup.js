@@ -19,6 +19,9 @@ function Popup() {
         "Content-Type": "application/json",
       },
     }).then(async (data) => console.log(await data.json()));
+    setUsername("");
+    setName("");
+    setPassword("");
   };
 
   return (
@@ -28,6 +31,7 @@ function Popup() {
       <div className="form-group">
         <label htmlFor="inp-username">User Name</label>
         <input
+          value={username}
           onChange={(e) => {
             setUsername(e.target.value);
             console.log(username);
@@ -41,6 +45,7 @@ function Popup() {
       <div className="form-group">
         <label htmlFor="inp-name">Name</label>
         <input
+          value={name}
           onChange={(e) => {
             setName(e.target.value);
             console.log(name);
@@ -54,6 +59,7 @@ function Popup() {
       <div className="form-group">
         <label htmlFor="inp-password">Password</label>
         <input
+          value={password}
           onChange={(e) => {
             setPassword(e.target.value);
             console.log(password);
