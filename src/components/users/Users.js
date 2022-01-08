@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import Popup from "../popup/Popup";
-function User({ info, onDelete }) {
+function User({ info, onDelete, onUpdate }) {
   const [pop1, setPop1] = useState(false);
-
-  console.log(info);
 
   const fetchdelete = (id) => {
     fetch(`http://localhost:3000/users/${id}`, {
@@ -16,7 +14,9 @@ function User({ info, onDelete }) {
 
   return (
     <div>
-      <h4>{`Your name is ${info.name}`}</h4>{" "}
+      <h4>{`Your name is ${info.name}`}</h4>
+      <div>{`Your username is ${info.username}`}</div>
+      <div>{`Your password is ${info.password}`}</div>
       <button
         onClick={() => {
           onDelete(info.id);
@@ -26,8 +26,7 @@ function User({ info, onDelete }) {
         delete
       </button>
       <button onClick={() => setPop1(true)}>Edit</button>
-      <div>{`Your username is ${info.username}`}</div>
-      {pop1 ? <Popup /> : console.log(" ")}
+      {pop1 ? <Popup user={info} onSave={onUpdate} /> : console.log(" ")}
     </div>
   );
 }
